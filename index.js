@@ -6,10 +6,10 @@ const makeString = (value, option) => {
     }
     option = option || {};
     option.assignment = option.assignment || '=';
-    option.seperator = option.seperator || '=';
-    option.curlyBraces = option.curlyBraces || true;
+    option.braces = option.braces || "true";
     option.quotes = option.quotes === 'double' ? 'double' : 'single';
 
+    //stringBasedOnType();
     if (isString(value)) {
         return option.quotes === 'double' ? '"' + value.replace(/\\/g, '\\\\').replace('"', '\\"') + '"' : "'" + value.replace(/\\/g, '\\\\').replace('"', '\\"') + "'";
     }
@@ -19,12 +19,25 @@ const makeString = (value, option) => {
     }
 
     if (Array.isArray(value)) {
-        // return
+        option.seperator = option.seperator || ',';
+        return option.braces === "true" ? '[' + value.map((val) => {
+            return makeString(val, option);
+        }).join(option.seperator) + ']' : value.map((val) => {
+            return makeString(val, option);
+        }).join(option.seperator);
     }
 
-    if () {
-
+    if (isDate(value)) {
+        return option.quotes === 'double' ? '"' + value.toISOString() + '"' : "'" + value.toISOString() + "'";
     }
+
+    if (isObject(value)) {
+        option.seperator = option.seperator || ',';
+        Object.keys(value).map(() => {
+
+        });
+    }
+
 
     return option.quotes === 'double' ? "" : '';
 
@@ -40,9 +53,21 @@ const isBoolean = (value) => {
 }
 
 const isObject = (value) => {
-    return (value != undefined && );
+    return (value !== undefined && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Object]');
 }
 
-console.log(typeof makeString(true, { quotes: 'single' }));
+const isDate = (value) => {
+    return (value != undefined && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]')
+}
 
-console.log(JSON.stringify([1, 2, "ajay"]));
+console.log(makeString(["ajay", "prajoth", new Date()], { quotes: 'single', braces: "false" }));
+
+console.log(typeof JSON.stringify([1, 2, "ajay"]));
+
+var ajay = {
+    name: "Ajay",
+    college: "UNCC"
+}
+console.log(JSON.stringify(ajay));
+console.log(isDate(new Date()));
+
