@@ -5,9 +5,9 @@ const makeString = (value, option) => {
         return null;
     }
     option = option || {};
-    option.assignment = option.assignment || '=';
+
     option.braces = option.braces || "true";
-    option.quotes = option.quotes === 'double' ? 'double' : 'single';
+    option.quotes = option.quotes || 'double';
 
     //stringBasedOnType();
     if (isString(value)) {
@@ -33,15 +33,22 @@ const makeString = (value, option) => {
 
     if (isObject(value)) {
         option.seperator = option.seperator || ',';
-        Object.keys(value).map(() => {
+        option.assignment = option.assignment || ':';
+        return option.braces === "true" ? '{' + iterateObj(value, option) + '}' : '' + iterateObj(value, option) + '';
+    };
 
-        });
-    }
 
 
     return option.quotes === 'double' ? "" : '';
 
 
+}
+
+const iterateObj = (value, option) => {
+    return Object.keys(value).map((key) => {
+        const modKey = (option.quotes === 'double') ? '"' + key + '"' : "'" + key + "'";
+        return (typeof value[key] === 'function') ? null : modKey + option.assignment + makeString(value[key], option);
+    }).filter(function (i) { return i; });
 }
 
 const isString = (value) => {
@@ -59,15 +66,15 @@ const isObject = (value) => {
 const isDate = (value) => {
     return (value != undefined && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]')
 }
-
-console.log(makeString(["ajay", "prajoth", new Date()], { quotes: 'single', braces: "false" }));
-
-console.log(typeof JSON.stringify([1, 2, "ajay"]));
-
 var ajay = {
     name: "Ajay",
-    college: "UNCC"
+    college: "uncc"
 }
-console.log(JSON.stringify(ajay));
+console.log(makeString(ajay, { braces: "false" }));
+
+//console.log(typeof JSON.stringify([1, 2, "ajay"]));
+
+
+//console.log(JSON.stringify(ajay));
 console.log(isDate(new Date()));
 
