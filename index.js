@@ -19,6 +19,10 @@ const createString = (value, option) => {
         return '' + value;
     }
 
+    if (isNumber(value)) {
+        return '' + value;
+    }
+
     if (Array.isArray(value)) {
         option.seperator = option.seperator || ',';
         return option.braces === "true" ? '[' + value.map((val) => {
@@ -66,6 +70,10 @@ const isObject = (value) => {
 
 const isDate = (value) => {
     return (value != undefined && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]')
+}
+
+const isNumber = (value) => {
+    return (value != undefined && typeof value === 'number')
 }
 
 const makeString = (value, option) => {
