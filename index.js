@@ -1,8 +1,8 @@
 'use strict';
 
-const makeString = (value, option) => {
+const createString = (value, option) => {
     if (value === null) {
-        return null;
+        return 'null';
     }
     option = option || {};
 
@@ -11,11 +11,12 @@ const makeString = (value, option) => {
 
     //stringBasedOnType();
     if (isString(value)) {
-        return option.quotes === 'double' ? '"' + value.replace(/\\/g, '\\\\').replace('"', '\\"') + '"' : "'" + value.replace(/\\/g, '\\\\').replace('"', '\\"') + "'";
+        const quote = option.quotes === 'no' ? 'double' : option.quotes;
+        return quote === 'double' ? '"' + value.replace(/\\/g, '\\\\').replace('"', '\\"') + '"' : "'" + value.replace(/\\/g, '\\\\').replace('"', '\\"') + "'";
     }
 
     if (isBoolean(value)) {
-        return option.quotes === 'double' ? '"' + value + '"' : "'" + value + "'";
+        return '' + value;
     }
 
     if (Array.isArray(value)) {
@@ -66,15 +67,12 @@ const isObject = (value) => {
 const isDate = (value) => {
     return (value != undefined && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]')
 }
-var ajay = {
-    name: "Ajay",
-    college: "uncc"
+
+const makeString = (value, option) => {
+    if (option && option.quotes === 'no') {
+        return createString(value, option).replace(/[""]/g, "");
+    }
+    return createString(value, option);
 }
-console.log(makeString(ajay, { braces: "false" }));
 
-//console.log(typeof JSON.stringify([1, 2, "ajay"]));
-
-
-//console.log(JSON.stringify(ajay));
-console.log(isDate(new Date()));
-
+module.exports = makeString;

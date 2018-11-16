@@ -37,6 +37,7 @@ describe("test toString method", () => {
 
     it("test number to string", () => {
         const str = makeString(25);
+        console.log(JSON.stringify(25));
         expect(str).to.be.a('string');
         expect(str).to.equal(JSON.stringify(25));
     });
