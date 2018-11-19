@@ -100,6 +100,20 @@ describe("test toString method", () => {
         expect(str).to.equal('"name"="Ajay","city"="san jose"');
     });
 
+    it("test Object to string with and without quotes", () => {
+        const sampleObject = {
+            name: "Ajay",
+            city: "san jose"
+        }
+        const str = makeString(sampleObject);
+        expect(str).to.be.a('string');
+        expect(str).to.equal(JSON.stringify(sampleObject));
+        const withoutQuotes = makeString(sampleObject, { quotes: 'no' });
+        expect(withoutQuotes).to.equal("{name:Ajay,city:san jose}");
+        const singleQuotes = makeString(sampleObject, { quotes: 'single' });
+        expect(singleQuotes).to.equal("{'name':'Ajay','city':'san jose'}");
+    });
+
     it("test Array to string", () => {
         const sampleArray = ["New York", "San Jose", "Charlotte"];
         const str = makeString(sampleArray);

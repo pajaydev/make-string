@@ -51,7 +51,7 @@ const createString = (value, option) => {
 
 const iterateObj = (value, option) => {
     return Object.keys(value).map((key) => {
-        const modKey = (option.quotes === 'double') ? '"' + key + '"' : "'" + key + "'";
+        const modKey = (option.quotes === 'single') ? "'" + key + "'" : '"' + key + '"';
         return (typeof value[key] === 'function') ? null : modKey + option.assignment + makeString(value[key], option);
     }).filter(function (i) { return i; });
 }
