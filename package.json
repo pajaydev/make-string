@@ -1,6 +1,6 @@
 {
   "name": "make-string",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "convert all data types to string in configurable way",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,9 @@
     "toString",
     "JSON.toString",
     "makeString"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pajaydev/make-string"
+  }
 }

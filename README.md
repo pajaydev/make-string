@@ -1,4 +1,4 @@
-# make-string [![Build Status](https://travis-ci.org/ajay2507/make-string.svg?branch=master)](https://travis-ci.org/ajay2507/make-string)
+# make-string [![Build Status](https://travis-ci.org/pajaydev/make-string.svg?branch=master)](https://travis-ci.org/pajaydev/make-string)
 
 make-string converts all data types to string as JSON.toString. 
 
@@ -14,7 +14,7 @@ const makeString = require('make-string');
 makeString(25); // '25'
 ```
 ## Why? ##
-I need to convert the object to string in configurable way like removing curly braces, with single quote, etc. So I created this module. If you face any issues with this module, Free feel to create the issues https://github.com/ajay2507/make-string/issues.
+I need to convert the object to string in configurable way like removing curly braces, with single quote, etc. So I created this module. If you face any issues with this module, Free feel to create the issues [here](https://github.com/pajaydev/make-string/issues).
  
 ## options ##
 Options can be passed as optional second param to makeString to configure few things.
@@ -34,4 +34,5 @@ makeString({package:"make-string"}); // '{"package":"make-string"}'
 makeString({package:"make-string"}, {braces: 'false'}); // '"package":"make-string"'
 makeString({package:"make-string"}, {assignment: '='}); // '{"package"="make-string"}'
 makeString({package:"make-string"}, {assignment: '=', quotes:'no'}); // '{package=make-string}'
+makeString({package:"make-string",author:"Ajay"}, {assignment: '=', quotes:'no', seperator:'&'}); // '{package=make-string&author=ajay}'
 ```

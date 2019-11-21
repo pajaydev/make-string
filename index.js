@@ -39,14 +39,11 @@ const createString = (value, option) => {
     if (isObject(value)) {
         option.seperator = option.seperator || ',';
         option.assignment = option.assignment || ':';
-        return option.braces === "true" ? '{' + iterateObj(value, option) + '}' : '' + iterateObj(value, option) + '';
+        const createObjString = iterateObj(value, option).join(option.seperator);
+        return option.braces === "true" ? '{' + createObjString + '}' : '' + createObjString + '';
     };
 
-
-
     return option.quotes === 'double' ? "" : '';
-
-
 }
 
 const iterateObj = (value, option) => {
