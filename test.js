@@ -100,6 +100,16 @@ describe("test toString method", () => {
         expect(str).to.equal('"name"="Ajay","city"="san jose"');
     });
 
+    it("test Object to string without braces and different seperator", () => {
+        const sampleObject = {
+            name: "Ajay",
+            city: "san jose"
+        }
+        const str = makeString(sampleObject, { braces: 'false', assignment: '=', seperator: '&', quotes: 'no' });
+        expect(str).to.be.a('string');
+        expect(str).to.equal('name=Ajay&city=san jose');
+    });
+
     it("test Object to string with and without quotes", () => {
         const sampleObject = {
             name: "Ajay",
